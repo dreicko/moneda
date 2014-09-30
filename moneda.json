@@ -1,4 +1,1 @@
-{"target": "EUR", "success": true, "rate": 0.7845, "source": "USD", "amount": 0.78, "message": ""},
-{"target": "USD", "success": true, "rate": 0.0749, "source": "MXN", "amount": 0.74, "message": ""},
-{"target": "EUR", "success": true, "rate": 0.0583, "source": "MXN", "amount": 0.58, "message": ""},
-{"target": "EUR", "success": true, "rate": 0.0583, "source": "XYZ", "amount": 0.74, "message": ""}
+{"target": "MXN", "success": true, "rate": 16.9522, "source": "EUR", "amount": 16.95, "message": ""}
