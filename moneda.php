@@ -53,12 +53,10 @@
 		return $resultado;
 
 	}
-
-	
 	/**
 	 * Prueba unitaria para revisar que la conversión este correcta
-	 * @param  string $monto
-	 * @param  string $resultado
+	 * @param  string $monto recibe la cantidad a convertir y las divisas de entrada
+	 * @param  string $resultado recibe el resultado de la divisa convertida
 	 * @return string Escribe en la pagina . si es correcto o ! si es incorrecto
 	 */
 	function revisar_prueba($monto, $resultado){
@@ -73,8 +71,8 @@
 
 	/**
 	 * Prueba unitaria utilizada para revisar que los paises no sean iguales
-	 * @param  string $pais_entrada
-	 * @param  string $pais_salida
+	 * @param  string $pais_entrada recibe el pais de entrada
+	 * @param  string $pais_salida recibe el pais de conversión 
 	 * @return string Escribe en la pagina un mensaje segun sea la validación
 	 */
 	function revisar_pais($pais_entrada, $pais_salida){
