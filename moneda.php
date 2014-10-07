@@ -1,34 +1,106 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php 
 	
+	header('Content-Type: text/html; charset=UTF-8');
 
-	$archivo = file_get_contents("moneda.json");
-	$data = json_decode($archivo, true);
-	//var_dump($data);
-	//print_r($data);
-	//echo(1 . $data["source"] . "=" . $data["amount"] ." ". $data["target"]);
+	/**
+	* Función utilizada para leer el archivo json en la api currency-api y realizar la conversion de moneda.
+	* $cadena_de_entrada variable utilizada para leer la moneda y los codigos iso 
+	*/
+	function leer_archivo($cadena_de_entrada, $moneda1, $moneda2){
+	// Variable utilizada para tomar el resultado de conversion de moneda
+	$resultado = 0.0;
+	// Variable igualizada para leer la direccion url de la api
+	$url = "http://currency-api.appspot.com/api/". $moneda1 ."/".$moneda2.".json?key=f99cfa4c5097f3ae7c7e23525f28b06bb7ab78f2";
+	// Variable para leer el json
+	$archivo = file_get_contents($url);
+	// Variable igualizada a la función json_decode para devolver un arreglo del json.
+	$data = json_decode($archivo);
+	// Variable igualizada a la función explode para crear un arreglo de una variable de cadena
+	$leer_cadena = explode(' ', $cadena_de_entrada);
 
-	$cadena_de_entrada = "125.34 MXN USD";
+	// Declaracion del arreglo con indices asociativos
+	$moneda = $leer_cadena[0];
+	$pais1 = $leer_cadena[1];
+	$pais2 = $leer_cadena[2];
 
-	$convertir = explode(' ', $cadena_de_entrada);
+	/** Anidación de la Función para utilizar los parametros enviados a la api
+	*	y asi comprovar que los paises no sean iguales
+	*/
+	revisar_pais($moneda1, $moneda2);
 
-	$moneda = $convertir[0];
-	$valor_1 = $convertir[1];
-	$valor_2 = $convertir[2];
+		// Condicional utilizada para verificar que los datos enviados a la api no esten vacios o existan
+		if ($moneda > 0 && !empty($data->target || $data->source)) {
+			// Condicional anidada para verificar que los datos enviados sean iguales
+			if ($pais1 === $data->source && $pais2 === $data->target) {
+			// Operaciones a realizar cuando pasa las verificaciones
+			$resultado = $moneda * $data->amount;
+			$resultado = round($resultado, 2);
+			// Mensaje de salida con los datos solicitados
+			echo ("$moneda $pais1 = $resultado $pais2 (Tasa de conversión: 1 $pais1 = $data->amount $pais2)");
+			}
 
-	// Prueba 1 obtener la conversión de manera manual.
-	echo ("$moneda $valor_1 = " . $moneda * 0.074 . " $valor_2 (Tasa de conversión: 1 $valor_1 = 0.074 $valor_2)");
+		}else{
+			// Mensaje de error en caso de que un codigo ISO 4217 sea incorrecto	
+			echo ("El codigo $pais1 o $pais2 no es correcto por favor reviselo");
+		}
+		
+		return $resultado;
+
+	}
+
+	// Prueba unitaria para revisar que la conversión este correcta
+	function revisar_prueba($monto, $resultado){
+		if($monto === $resultado){
+		// prueba ok
+		echo ("."); 
+		}else{
+		// prueba mal 
+		echo ("!"); 
+		}
+	}	
+
+	// Prueba unitaria utilizada para revisar que los paises no sean iguales
+	function revisar_pais($pais_entrada, $pais_salida){
+		if($pais_entrada !== $pais_salida){
+			echo ("La conversión entre paises es:");
+			echo "</br>";
+		}else{
+		echo ("Los codigos a convertir son iguales");
+		}
+		
+	}
+
+	/*
+		Función utilizada para revisar las pruebas de conversión
+		las conversiones encontradas entre la api y la pagina de currencytools tienen diferencias de centavos entre si
+	*/
+	function convertir_moneda(){
+
+		// Conversiones principales
+		
+		leer_archivo("125.34 MXN USD", "MXN", "USD");
+		echo"</br></br>";
+		leer_archivo("21536.10 EUR MXN", "EUR", "MXN");
+		echo "</br></br>";
+		leer_archivo("20.10 EUR XYZ", "EUR", "XYZ");
+
+		// Conversiones sugeridas
+		echo "</br></br>";
+		// La conversión entre dolares y pesos es diferente en la api y la pagina
+		revisar_prueba(leer_archivo("10 USD MXN", "USD", "MXN"), 134.34);
+		echo "</br></br>";
+		revisar_prueba(leer_archivo("5.5 USD EUR", "USD", "EUR"), 4.35);
+		echo "</br></br>";
+		revisar_prueba(leer_archivo("20.36 CAD USD", "CAD", "USD"), 18.32);
+		echo "</br></br>";
+		// Se revisa que los paises enviados a la api sean diferentes
+		revisar_pais(leer_archivo("16.45 CAD USD", "CAD", "CAD"));
+		echo "</br></br>";
+		// Los codigos de algunos paises no estan almacenados en la api
+		revisar_prueba(leer_archivo("26.60 ANG BBD", "ANG", "BBD"), 28.84);
+	}
 	
-	// Prueba 2 obtener la conversion con el json.
-	$cadena_de_entrada2 = "21536.10 EUR MXN";
-	$convertir2 = explode(' ', $cadena_de_entrada2);
+	convertir_moneda();
 
-	$moneda1 = $convertir2[0];
-	$pais1 = $convertir2[1];
-	$pais2 = $convertir2[2];
-	echo "<br><br>";
-	echo ("$moneda1 $data[source] " . $moneda1 * $data["rate"] . " = $data[target] \n (Tasa de conversion: 1 $pais1 = 16.9522 $pais2) ");
-	
 
 ?>
-
