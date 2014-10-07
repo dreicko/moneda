@@ -1,7 +1,7 @@
 <?php 
-	
+
 	// Codigo utilizado para reconocimiento de lenguaje
-	header('Content-Type: text/html; charset=UTF-8');
+header('Content-Type: text/html; charset=UTF-8');
 
 	/**
 	 * Función utilizada para leer el archivo json en la api currency-api y realizar la conversion de moneda.
@@ -38,11 +38,11 @@
 			// Condicional anidada para verificar que los datos enviados sean iguales
 			if ($pais1 === $data->source && $pais2 === $data->target) {
 			// Operaciones a realizar cuando pasa las verificaciones
-			$resultado = $moneda * $data->amount;
+				$resultado = $moneda * $data->amount;
 			// Redondea los decimales del resultado a dos .00
-			$resultado = round($resultado, 2);
+				$resultado = round($resultado, 2);
 			// Mensaje de salida con los datos solicitados
-			echo ("$moneda $pais1 = $resultado $pais2 (Tasa de conversión: 1 $pais1 = $data->amount $pais2)");
+				echo ("$moneda $pais1 = $resultado $pais2 (Tasa de conversión: 1 $pais1 = $data->amount $pais2)");
 			}
 
 		}else{
@@ -63,10 +63,10 @@
 	function revisar_prueba($monto, $resultado){
 		if($monto === $resultado){
 		// Simbolo utilizado cuando la prueba pasa
-		echo ("."); 
+			echo ("."); 
 		}else{
 		// Simbolo utilizado cuando la prueba no pasa
-		echo ("!"); 
+			echo ("!"); 
 		}
 	}	
 
@@ -84,7 +84,7 @@
 			echo "</br>";
 		}else{
 			// Mensaje a mostrar cuando es incorrecto
-		echo ("Los codigos a convertir son iguales");
+			echo ("Los codigos a convertir son iguales");
 		}
 		
 	}
@@ -94,31 +94,31 @@
  	* las conversiones encontradas entre la api y la pagina de currencytools tienen diferencias de centavos entre si
  	* @return string Muestra en la pagina los mensajes segun el resultado
  	*/
-	function convertir_moneda(){
+ 	function convertir_moneda(){
 
 		// Conversiones principales
-		
-		leer_archivo("125.34 MXN USD", "MXN", "USD");
-		echo"</br></br>";
-		leer_archivo("21536.10 EUR MXN", "EUR", "MXN");
-		echo "</br></br>";
-		leer_archivo("20.10 EUR XYZ", "EUR", "XYZ");
+ 		
+ 		leer_archivo("125.34 MXN USD", "MXN", "USD");
+ 		echo"</br></br>";
+ 		leer_archivo("21536.10 EUR MXN", "EUR", "MXN");
+ 		echo "</br></br>";
+ 		leer_archivo("20.10 EUR XYZ", "EUR", "XYZ");
 
 		// Conversiones sugeridas
-		echo "</br></br>";
+ 		echo "</br></br>";
 		// La conversión entre dolares y pesos es diferente en la api y la pagina
-		revisar_prueba(leer_archivo("10 USD MXN", "USD", "MXN"), 134.34);
-		echo "</br></br>";
-		revisar_prueba(leer_archivo("5.5 USD EUR", "USD", "EUR"), 4.35);
-		echo "</br></br>";
-		revisar_prueba(leer_archivo("20.36 CAD USD", "CAD", "USD"), 18.32);
-		echo "</br></br>";
+ 		revisar_prueba(leer_archivo("10 USD MXN", "USD", "MXN"), 134.34);
+ 		echo "</br></br>";
+ 		revisar_prueba(leer_archivo("5.5 USD EUR", "USD", "EUR"), 4.35);
+ 		echo "</br></br>";
+ 		revisar_prueba(leer_archivo("20.36 CAD USD", "CAD", "USD"), 18.32);
+ 		echo "</br></br>";
 		// Se revisa que los paises enviados a la api sean diferentes
-		revisar_pais(leer_archivo("16.45 CAD USD", "CAD", "CAD"));
-		echo "</br></br>";
+ 		revisar_pais(leer_archivo("16.45 CAD USD", "CAD", "CAD"));
+ 		echo "</br></br>";
 		// Los codigos de algunos paises no estan almacenados en la api
-		revisar_prueba(leer_archivo("26.60 ANG BBD", "ANG", "BBD"), 28.84);
-	}
-	
+ 		revisar_prueba(leer_archivo("26.60 ANG BBD", "ANG", "BBD"), 28.84);
+ 	}
+ 	
 	// Devuelve todas las pruebas hechas
-	convertir_moneda();
+ 	convertir_moneda();
