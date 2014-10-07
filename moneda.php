@@ -1,15 +1,16 @@
 <?php 
 	
+	// Codigo utilizado para reconocimiento de lenguaje
 	header('Content-Type: text/html; charset=UTF-8');
 
-/**
- * Función utilizada para leer el archivo json en la api currency-api y realizar la conversion de moneda.
- * $cadena_de_entrada variable utilizada para leer la moneda y los codigos iso
- * @param  string $cadena_de_entrada es la cantida a convertir junto con las divisas separadas por espacios 
- * @param  string $moneda1 es la divisa origen a convertir 
- * @param  string $moneda2 es la divisa destino a convertir 
- * @return  float Es la conversión de divisas redondeada a dos decimales
- */
+	/**
+	 * Función utilizada para leer el archivo json en la api currency-api y realizar la conversion de moneda.
+	 * $cadena_de_entrada variable utilizada para leer la moneda y los codigos iso
+	 * @param  string $cadena_de_entrada es la cantida a convertir junto con las divisas separadas por espacios 
+	 * @param  string $moneda1 es la divisa origen a convertir 
+	 * @param  string $moneda2 es la divisa destino a convertir 
+	 * @return  float Es la conversión de divisas redondeada a dos decimales
+	 */
 	function leer_archivo($cadena_de_entrada, $moneda1, $moneda2){
 		// Variable utilizada para tomar el resultado de conversion de moneda
 		$resultado = 0.0;
@@ -121,6 +122,3 @@
 	
 	// Devuelve todas las pruebas hechas
 	convertir_moneda();
-
-
-?>
