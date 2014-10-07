@@ -24,7 +24,7 @@
 	$pais2 = $leer_cadena[2];
 
 	/** Anidación de la Función para utilizar los parametros enviados a la api
-	*	y asi comprovar que los paises no sean iguales
+	*	y asi comprobar que los paises no sean iguales
 	*/
 	revisar_pais($moneda1, $moneda2);
 
@@ -34,6 +34,7 @@
 			if ($pais1 === $data->source && $pais2 === $data->target) {
 			// Operaciones a realizar cuando pasa las verificaciones
 			$resultado = $moneda * $data->amount;
+			// Redondea los decimales del resultado a dos .00
 			$resultado = round($resultado, 2);
 			// Mensaje de salida con los datos solicitados
 			echo ("$moneda $pais1 = $resultado $pais2 (Tasa de conversión: 1 $pais1 = $data->amount $pais2)");
@@ -44,6 +45,7 @@
 			echo ("El codigo $pais1 o $pais2 no es correcto por favor reviselo");
 		}
 		
+		// Devuelve la conversión redondeada con dos decimales
 		return $resultado;
 
 	}
@@ -51,20 +53,23 @@
 	// Prueba unitaria para revisar que la conversión este correcta
 	function revisar_prueba($monto, $resultado){
 		if($monto === $resultado){
-		// prueba ok
+		// Simbolo utilizado cuando la prueba pasa
 		echo ("."); 
 		}else{
-		// prueba mal 
+		// Simbolo utilizado cuando la prueba no pasa
 		echo ("!"); 
 		}
 	}	
 
 	// Prueba unitaria utilizada para revisar que los paises no sean iguales
 	function revisar_pais($pais_entrada, $pais_salida){
+		// Condicional utilizada para comprobar que los paises sean diferentes
 		if($pais_entrada !== $pais_salida){
+			// Mensaje a mostrar cuando es correcto
 			echo ("La conversión entre paises es:");
 			echo "</br>";
 		}else{
+			// Mensaje a mostrar cuando es incorrecto
 		echo ("Los codigos a convertir son iguales");
 		}
 		
@@ -100,6 +105,7 @@
 		revisar_prueba(leer_archivo("26.60 ANG BBD", "ANG", "BBD"), 28.84);
 	}
 	
+	// Devuelve todas las pruebas hechas
 	convertir_moneda();
 
 
