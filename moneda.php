@@ -2,38 +2,35 @@
 	
 	header('Content-Type: text/html; charset=UTF-8');
 
-	/**
-	* Función utilizada para leer el archivo json en la api currency-api y realizar la conversion de moneda.
-	* $cadena_de_entrada variable utilizada para leer la moneda y los codigos iso 
-	*/
 /**
- * [leer_archivo description]
- * @param  [type] $cadena_de_entrada
- * @param  [type] $moneda1
- * @param  [type] $moneda2
- * @return [type]
+ * Función utilizada para leer el archivo json en la api currency-api y realizar la conversion de moneda.
+ * $cadena_de_entrada variable utilizada para leer la moneda y los codigos iso
+ * @param  string $cadena_de_entrada es la cantida a convertir junto con las divisas separadas por espacios 
+ * @param  string $moneda1 es la divisa origen a convertir 
+ * @param  string $moneda2 es la divisa destino a convertir 
+ * @return  float Es la conversión de divisas redondeada a dos decimales
  */
 	function leer_archivo($cadena_de_entrada, $moneda1, $moneda2){
-	// Variable utilizada para tomar el resultado de conversion de moneda
-	$resultado = 0.0;
-	// Variable igualizada para leer la direccion url de la api
-	$url = "http://currency-api.appspot.com/api/". $moneda1 ."/".$moneda2.".json?key=f99cfa4c5097f3ae7c7e23525f28b06bb7ab78f2";
-	// Variable para leer el json
-	$archivo = file_get_contents($url);
-	// Variable igualizada a la función json_decode para devolver un arreglo del json.
-	$data = json_decode($archivo);
-	// Variable igualizada a la función explode para crear un arreglo de una variable de cadena
-	$leer_cadena = explode(' ', $cadena_de_entrada);
+		// Variable utilizada para tomar el resultado de conversion de moneda
+		$resultado = 0.0;
+		// Variable igualizada para leer la direccion url de la api
+		$url = "http://currency-api.appspot.com/api/". $moneda1 ."/".$moneda2.".json?key=f99cfa4c5097f3ae7c7e23525f28b06bb7ab78f2";
+		// Variable para leer el json
+		$archivo = file_get_contents($url);
+		// Variable igualizada a la función json_decode para devolver un arreglo del json.
+		$data = json_decode($archivo);
+		// Variable igualizada a la función explode para crear un arreglo de una variable de cadena
+		$leer_cadena = explode(' ', $cadena_de_entrada);
 
-	// Declaracion del arreglo con indices asociativos
-	$moneda = $leer_cadena[0];
-	$pais1 = $leer_cadena[1];
-	$pais2 = $leer_cadena[2];
+		// Declaracion del arreglo con indices asociativos
+		$moneda = $leer_cadena[0];
+		$pais1 = $leer_cadena[1];
+		$pais2 = $leer_cadena[2];
 
-	/** Anidación de la Función para utilizar los parametros enviados a la api
-	*	y asi comprobar que los paises no sean iguales
-	*/
-	revisar_pais($moneda1, $moneda2);
+		/** Anidación de la Función para utilizar los parametros enviados a la api
+		*	y asi comprobar que los paises no sean iguales
+		*/
+		revisar_pais($moneda1, $moneda2);
 
 		// Condicional utilizada para verificar que los datos enviados a la api no esten vacios o existan
 		if ($moneda > 0 && !empty($data->target || $data->source)) {
@@ -57,12 +54,12 @@
 
 	}
 
-	// Prueba unitaria para revisar que la conversión este correcta
+	
 	/**
-	 * [revisar_prueba description]
-	 * @param  [type] $monto
-	 * @param  [type] $resultado
-	 * @return [type]
+	 * Prueba unitaria para revisar que la conversión este correcta
+	 * @param  string $monto
+	 * @param  string $resultado
+	 * @return string Escribe en la pagina . si es correcto o ! si es incorrecto
 	 */
 	function revisar_prueba($monto, $resultado){
 		if($monto === $resultado){
@@ -74,12 +71,11 @@
 		}
 	}	
 
-	// Prueba unitaria utilizada para revisar que los paises no sean iguales
 	/**
-	 * [revisar_pais description]
-	 * @param  [type] $pais_entrada
-	 * @param  [type] $pais_salida
-	 * @return [type]
+	 * Prueba unitaria utilizada para revisar que los paises no sean iguales
+	 * @param  string $pais_entrada
+	 * @param  string $pais_salida
+	 * @return string Escribe en la pagina un mensaje segun sea la validación
 	 */
 	function revisar_pais($pais_entrada, $pais_salida){
 		// Condicional utilizada para comprobar que los paises sean diferentes
@@ -94,19 +90,11 @@
 		
 	}
 
-	/*
-		Función utilizada para revisar las pruebas de conversión
-		las conversiones encontradas entre la api y la pagina de currencytools tienen diferencias de centavos entre si
-	*/
-
-/**
- * [convertir_moneda description]
- * @return [type]
- */
-/**
- * [convertir_moneda description]
- * @return [type]
- */
+	/**
+ 	* Función utilizada para revisar las pruebas de conversión
+ 	* las conversiones encontradas entre la api y la pagina de currencytools tienen diferencias de centavos entre si
+ 	* @return string Muestra en la pagina los mensajes segun el resultado
+ 	*/
 	function convertir_moneda(){
 
 		// Conversiones principales
