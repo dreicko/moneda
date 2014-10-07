@@ -6,6 +6,13 @@
 	* Función utilizada para leer el archivo json en la api currency-api y realizar la conversion de moneda.
 	* $cadena_de_entrada variable utilizada para leer la moneda y los codigos iso 
 	*/
+/**
+ * [leer_archivo description]
+ * @param  [type] $cadena_de_entrada
+ * @param  [type] $moneda1
+ * @param  [type] $moneda2
+ * @return [type]
+ */
 	function leer_archivo($cadena_de_entrada, $moneda1, $moneda2){
 	// Variable utilizada para tomar el resultado de conversion de moneda
 	$resultado = 0.0;
@@ -51,6 +58,12 @@
 	}
 
 	// Prueba unitaria para revisar que la conversión este correcta
+	/**
+	 * [revisar_prueba description]
+	 * @param  [type] $monto
+	 * @param  [type] $resultado
+	 * @return [type]
+	 */
 	function revisar_prueba($monto, $resultado){
 		if($monto === $resultado){
 		// Simbolo utilizado cuando la prueba pasa
@@ -62,6 +75,12 @@
 	}	
 
 	// Prueba unitaria utilizada para revisar que los paises no sean iguales
+	/**
+	 * [revisar_pais description]
+	 * @param  [type] $pais_entrada
+	 * @param  [type] $pais_salida
+	 * @return [type]
+	 */
 	function revisar_pais($pais_entrada, $pais_salida){
 		// Condicional utilizada para comprobar que los paises sean diferentes
 		if($pais_entrada !== $pais_salida){
@@ -79,6 +98,15 @@
 		Función utilizada para revisar las pruebas de conversión
 		las conversiones encontradas entre la api y la pagina de currencytools tienen diferencias de centavos entre si
 	*/
+
+/**
+ * [convertir_moneda description]
+ * @return [type]
+ */
+/**
+ * [convertir_moneda description]
+ * @return [type]
+ */
 	function convertir_moneda(){
 
 		// Conversiones principales
